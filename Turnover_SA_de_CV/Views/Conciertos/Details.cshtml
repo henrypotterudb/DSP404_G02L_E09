@@ -1,0 +1,66 @@
+﻿@model Turnover_SA_de_CV.Concierto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Concierto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaConcierto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaConcierto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lugar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lugar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntradasPlateaDisponibles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntradasPlateaDisponibles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntradasVIPDisponibles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntradasVIPDisponibles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntradasGeneralDisponibles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntradasGeneralDisponibles)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @{
+            ViewBag.Title = "Login";
+        }
+
+        <h2>Login</h2>
+
+        @using (Html.BeginForm("Login", "Usuario", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.Label("Correo Electrónico")
+                <input type="email" name="correoElectronico" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Contraseña")
+                <input type="password" name="contraseña" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        }
+
+        <div>
+            @Html.ActionLink("¿No tienes una cuenta? Regístrate", "Registro", "Usuario")
+        </div>
+    </div>
+</body>
+</html>

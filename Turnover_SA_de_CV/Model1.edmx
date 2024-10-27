@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Turnover_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Conciertos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FechaConcierto" Type="datetime" Nullable="false" />
+          <Property Name="Lugar" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="EntradasPlateaDisponibles" Type="int" Nullable="false" />
+          <Property Name="EntradasVIPDisponibles" Type="int" Nullable="false" />
+          <Property Name="EntradasGeneralDisponibles" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entradas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="ConciertoId" Type="int" Nullable="false" />
+          <Property Name="Seccion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistorialCompras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="ConciertoId" Type="int" Nullable="false" />
+          <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="TotalComprado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Entradas__Concie__3D5E1FD2">
+          <End Role="Conciertos" Type="Self.Conciertos" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conciertos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="ConciertoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entradas__Usuari__3C69FB99">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Conci__412EB0B6">
+          <End Role="Conciertos" Type="Self.Conciertos" Multiplicity="1" />
+          <End Role="HistorialCompras" Type="Self.HistorialCompras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conciertos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialCompras">
+              <PropertyRef Name="ConciertoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Usuar__403A8C7D">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="HistorialCompras" Type="Self.HistorialCompras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialCompras">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Turnover_databaseModelStoreContainer">
+          <EntitySet Name="Conciertos" EntityType="Self.Conciertos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entradas" EntityType="Self.Entradas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialCompras" EntityType="Self.HistorialCompras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Entradas__Concie__3D5E1FD2" Association="Self.FK__Entradas__Concie__3D5E1FD2">
+            <End Role="Conciertos" EntitySet="Conciertos" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entradas__Usuari__3C69FB99" Association="Self.FK__Entradas__Usuari__3C69FB99">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Conci__412EB0B6" Association="Self.FK__Historial__Conci__412EB0B6">
+            <End Role="Conciertos" EntitySet="Conciertos" />
+            <End Role="HistorialCompras" EntitySet="HistorialCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Usuar__403A8C7D" Association="Self.FK__Historial__Usuar__403A8C7D">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="HistorialCompras" EntitySet="HistorialCompras" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Turnover_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Concierto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaConcierto" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Lugar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EntradasPlateaDisponibles" Type="Int32" Nullable="false" />
+          <Property Name="EntradasVIPDisponibles" Type="Int32" Nullable="false" />
+          <Property Name="EntradasGeneralDisponibles" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entradas" Relationship="Self.FK__Entradas__Concie__3D5E1FD2" FromRole="Conciertos" ToRole="Entradas" />
+          <NavigationProperty Name="HistorialCompras" Relationship="Self.FK__Historial__Conci__412EB0B6" FromRole="Conciertos" ToRole="HistorialCompras" />
+        </EntityType>
+        <EntityType Name="Entrada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="ConciertoId" Type="Int32" Nullable="false" />
+          <Property Name="Seccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Concierto" Relationship="Self.FK__Entradas__Concie__3D5E1FD2" FromRole="Entradas" ToRole="Conciertos" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Entradas__Usuari__3C69FB99" FromRole="Entradas" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="HistorialCompra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="ConciertoId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalComprado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Concierto" Relationship="Self.FK__Historial__Conci__412EB0B6" FromRole="HistorialCompras" ToRole="Conciertos" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Historial__Usuar__403A8C7D" FromRole="HistorialCompras" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Entradas" Relationship="Self.FK__Entradas__Usuari__3C69FB99" FromRole="Usuarios" ToRole="Entradas" />
+          <NavigationProperty Name="HistorialCompras" Relationship="Self.FK__Historial__Usuar__403A8C7D" FromRole="Usuarios" ToRole="HistorialCompras" />
+        </EntityType>
+        <Association Name="FK__Entradas__Concie__3D5E1FD2">
+          <End Role="Conciertos" Type="Self.Concierto" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conciertos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="ConciertoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Conci__412EB0B6">
+          <End Role="Conciertos" Type="Self.Concierto" Multiplicity="1" />
+          <End Role="HistorialCompras" Type="Self.HistorialCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conciertos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialCompras">
+              <PropertyRef Name="ConciertoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entradas__Usuari__3C69FB99">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Usuar__403A8C7D">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="HistorialCompras" Type="Self.HistorialCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistorialCompras">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Turnover_databaseEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Conciertos" EntityType="Self.Concierto" />
+          <EntitySet Name="Entradas" EntityType="Self.Entrada" />
+          <EntitySet Name="HistorialCompras" EntityType="Self.HistorialCompra" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Entradas__Concie__3D5E1FD2" Association="Self.FK__Entradas__Concie__3D5E1FD2">
+            <End Role="Conciertos" EntitySet="Conciertos" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Conci__412EB0B6" Association="Self.FK__Historial__Conci__412EB0B6">
+            <End Role="Conciertos" EntitySet="Conciertos" />
+            <End Role="HistorialCompras" EntitySet="HistorialCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entradas__Usuari__3C69FB99" Association="Self.FK__Entradas__Usuari__3C69FB99">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Usuar__403A8C7D" Association="Self.FK__Historial__Usuar__403A8C7D">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="HistorialCompras" EntitySet="HistorialCompras" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Turnover_databaseModelStoreContainer" CdmEntityContainer="Turnover_databaseEntities1">
+          <EntitySetMapping Name="Conciertos">
+            <EntityTypeMapping TypeName="Turnover_databaseModel.Concierto">
+              <MappingFragment StoreEntitySet="Conciertos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaConcierto" ColumnName="FechaConcierto" />
+                <ScalarProperty Name="Lugar" ColumnName="Lugar" />
+                <ScalarProperty Name="EntradasPlateaDisponibles" ColumnName="EntradasPlateaDisponibles" />
+                <ScalarProperty Name="EntradasVIPDisponibles" ColumnName="EntradasVIPDisponibles" />
+                <ScalarProperty Name="EntradasGeneralDisponibles" ColumnName="EntradasGeneralDisponibles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entradas">
+            <EntityTypeMapping TypeName="Turnover_databaseModel.Entrada">
+              <MappingFragment StoreEntitySet="Entradas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="ConciertoId" ColumnName="ConciertoId" />
+                <ScalarProperty Name="Seccion" ColumnName="Seccion" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialCompras">
+            <EntityTypeMapping TypeName="Turnover_databaseModel.HistorialCompra">
+              <MappingFragment StoreEntitySet="HistorialCompras">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="ConciertoId" ColumnName="ConciertoId" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="TotalComprado" ColumnName="TotalComprado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Turnover_databaseModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

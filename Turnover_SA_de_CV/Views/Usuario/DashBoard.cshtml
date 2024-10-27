@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @{
+            ViewBag.Title = "Dashboard";
+        }
+
+        <h2>Bienvenido, @Session["NombreUsuario"]</h2>
+
+        <p>Este es tu dashboard. Aquí puedes ver la lista de conciertos disponibles y tu historial de compras.</p>
+
+        <h3>Conciertos Disponibles</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Aquí agregarías código para iterar sobre una lista de conciertos disponibles *@
+            </tbody>
+        </table>
+
+        <h3>Historial de Compras</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Concierto</th>
+                    <th>Sección</th>
+                    <th>Cantidad</th>
+                    <th>Fecha de Compra</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Aquí agregarías código para iterar sobre el historial de compras del usuario *@
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
