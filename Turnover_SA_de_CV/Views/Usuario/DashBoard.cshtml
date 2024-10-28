@@ -13,36 +13,65 @@
 
         <h2>Bienvenido, @Session["NombreUsuario"]</h2>
 
-        <p>Este es tu dashboard. Aquí puedes ver la lista de conciertos disponibles y tu historial de compras.</p>
-
+        <!-- Sección de Conciertos Disponibles -->
         <h3>Conciertos Disponibles</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Fecha</th>
+                    <th>Lugar</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @* Aquí agregarías código para iterar sobre una lista de conciertos disponibles *@
+                @foreach (var concierto in ViewBag.ConciertosDisponibles)
+                {
+                    <tr>
+                        <td>@concierto.Nombre</td>
+                        <td>@concierto.FechaConcierto</td>
+                        <td>@concierto.Lugar</td>
+                        <td>
+                            @Html.ActionLink("Comprar", "Create", "Entradas", new { id = concierto.Id }, null)
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
 
+        <!-- Sección de Historial de Compras -->
         <h3>Historial de Compras</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Concierto</th>
-                    <th>Sección</th>
-                    <th>Cantidad</th>
-                    <th>Fecha de Compra</th>
-                </tr>
-            </thead>
-            <tbody>
-                @* Aquí agregarías código para iterar sobre el historial de compras del usuario *@
-            </tbody>
-        </table>
+
+        @if (ViewBag.HistorialCompras != null && ((IEnumerable<dynamic>)ViewBag.HistorialCompras).Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Concierto</th>
+                        <th>Fecha de Compra</th>
+                        <th>Sección</th>
+                        <th>Cantidad de Entradas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var compra in ViewBag.HistorialCompras)
+                    {
+                        <tr>
+                            <td>@compra.Nombre</td>
+                            <td>@compra.FechaCompra</td>
+                            <td>@compra.Seccion</td>
+                            <td>@compra.Cantidad</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No has realizado ninguna compra aún.</p>
+        }
+
+
 
     </div>
 </body>

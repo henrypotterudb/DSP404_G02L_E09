@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Turnover_SA_de_CV.Controllers
 {
+
     public class UsuarioController : Controller
     {
         private readonly Turnover_databaseEntities1 _context;
@@ -77,6 +78,24 @@ namespace Turnover_SA_de_CV.Controllers
             var usuarioId = Session["UsuarioId"];
             if (usuarioId != null)
             {
+                // Obtener el listado de conciertos disponibles
+                var conciertos = _context.Conciertos.ToList();
+
+                // Obtener el historial de compras del usuario autenticado, incluyendo la sección desde Entradas
+                var compras = _context.Entradas
+                    .Where(e => e.UsuarioId.ToString() == usuarioId.ToString())
+                    .Select(e => new {
+                        e.Concierto.Nombre,
+                        e.FechaCompra,
+                        e.Seccion,
+                        e.Cantidad
+                    })
+                    .ToList();
+
+                // Pasar ambos datos a la vista usando ViewBag
+                ViewBag.ConciertosDisponibles = conciertos;
+                ViewBag.HistorialCompras = compras;
+
                 return View();
             }
             else
@@ -84,6 +103,8 @@ namespace Turnover_SA_de_CV.Controllers
                 return RedirectToAction("Login");
             }
         }
+
+
 
         public ActionResult Logout()
         {

@@ -23,4 +23,11 @@ namespace Turnover_SA_de_CV
         public virtual Concierto Concierto { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
+    public class CompraModel
+    {
+        public string NombreConcierto { get; set; }
+        public DateTime FechaCompra { get; set; }
+        public string Seccion { get; set; }
+        public int Cantidad { get; set; }
+    }
 }
