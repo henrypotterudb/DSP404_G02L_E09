@@ -46,7 +46,7 @@ namespace Turnover_SA_de_CV.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,EntradasVIPDisponibles,EntradasGeneralDisponibles")] Concierto concierto)
+        public ActionResult Create([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,PrecioPlatea,EntradasVIPDisponibles,PrecioVIP,EntradasGeneralDisponibles,PrecioGeneral")] Concierto concierto)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Turnover_SA_de_CV.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,EntradasVIPDisponibles,EntradasGeneralDisponibles")] Concierto concierto)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,PrecioPlatea,EntradasVIPDisponibles,PrecioVIP,EntradasGeneralDisponibles,PrecioGeneral")] Concierto concierto)
         {
             if (ModelState.IsValid)
             {
@@ -123,6 +123,5 @@ namespace Turnover_SA_de_CV.Controllers
             }
             base.Dispose(disposing);
         }
-
-        }
+    }
 }

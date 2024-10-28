@@ -160,11 +160,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Conciertos\Create.cshtml" />
-    <Content Include="Views\Conciertos\Delete.cshtml" />
-    <Content Include="Views\Conciertos\Details.cshtml" />
-    <Content Include="Views\Conciertos\Edit.cshtml" />
-    <Content Include="Views\Conciertos\Index.cshtml" />
     <Content Include="Views\Entradas\Create.cshtml" />
     <Content Include="Views\Entradas\Delete.cshtml" />
     <Content Include="Views\Entradas\Details.cshtml" />
@@ -173,6 +168,11 @@
     <Content Include="Views\Usuario\Registro.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Usuario\DashBoard.cshtml" />
+    <Content Include="Views\Conciertos\Create.cshtml" />
+    <Content Include="Views\Conciertos\Delete.cshtml" />
+    <Content Include="Views\Conciertos\Details.cshtml" />
+    <Content Include="Views\Conciertos\Edit.cshtml" />
+    <Content Include="Views\Conciertos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

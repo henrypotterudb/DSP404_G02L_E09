@@ -20,6 +20,7 @@ namespace Turnover_SA_de_CV
         public string Seccion { get; set; }
         public int Cantidad { get; set; }
         public System.DateTime FechaCompra { get; set; }
+        public decimal TotalPagado { get; set; }
     
         public virtual Concierto Concierto { get; set; }
         public virtual Usuario Usuario { get; set; }

@@ -28,6 +28,9 @@ namespace Turnover_SA_de_CV
         public int EntradasPlateaDisponibles { get; set; }
         public int EntradasVIPDisponibles { get; set; }
         public int EntradasGeneralDisponibles { get; set; }
+        public decimal PrecioPlatea { get; set; }
+        public decimal PrecioVIP { get; set; }
+        public decimal PrecioGeneral { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entrada> Entradas { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Turnover_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Turnover_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Conciertos">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +16,9 @@
           <Property Name="EntradasPlateaDisponibles" Type="int" Nullable="false" />
           <Property Name="EntradasVIPDisponibles" Type="int" Nullable="false" />
           <Property Name="EntradasGeneralDisponibles" Type="int" Nullable="false" />
+          <Property Name="PrecioPlatea" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PrecioVIP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PrecioGeneral" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Entradas">
           <Key>
@@ -27,6 +30,7 @@
           <Property Name="Seccion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="TotalPagado" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="HistorialCompras">
           <Key>
@@ -117,8 +121,7 @@
             <End Role="HistorialCompras" EntitySet="HistorialCompras" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Turnover_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -135,6 +138,9 @@
           <Property Name="EntradasGeneralDisponibles" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Entradas" Relationship="Self.FK__Entradas__Concie__3D5E1FD2" FromRole="Conciertos" ToRole="Entradas" />
           <NavigationProperty Name="HistorialCompras" Relationship="Self.FK__Historial__Conci__412EB0B6" FromRole="Conciertos" ToRole="HistorialCompras" />
+          <Property Name="PrecioPlatea" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="PrecioVIP" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="PrecioGeneral" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Entrada">
           <Key>
@@ -148,6 +154,7 @@
           <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Concierto" Relationship="Self.FK__Entradas__Concie__3D5E1FD2" FromRole="Entradas" ToRole="Conciertos" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Entradas__Usuari__3C69FB99" FromRole="Entradas" ToRole="Usuarios" />
+          <Property Name="TotalPagado" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="HistorialCompra">
           <Key>
@@ -251,6 +258,9 @@
           <EntitySetMapping Name="Conciertos">
             <EntityTypeMapping TypeName="Turnover_databaseModel.Concierto">
               <MappingFragment StoreEntitySet="Conciertos">
+                <ScalarProperty Name="PrecioGeneral" ColumnName="PrecioGeneral" />
+                <ScalarProperty Name="PrecioVIP" ColumnName="PrecioVIP" />
+                <ScalarProperty Name="PrecioPlatea" ColumnName="PrecioPlatea" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="FechaConcierto" ColumnName="FechaConcierto" />
@@ -264,6 +274,7 @@
           <EntitySetMapping Name="Entradas">
             <EntityTypeMapping TypeName="Turnover_databaseModel.Entrada">
               <MappingFragment StoreEntitySet="Entradas">
+                <ScalarProperty Name="TotalPagado" ColumnName="TotalPagado" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="ConciertoId" ColumnName="ConciertoId" />

@@ -104,8 +104,6 @@ namespace Turnover_SA_de_CV.Controllers
             }
         }
 
-
-
         public ActionResult Logout()
         {
             // Limpiar la sesión
