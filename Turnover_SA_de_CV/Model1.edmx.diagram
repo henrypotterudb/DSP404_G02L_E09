@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="64f4deb28f0447ffb3add6e96691d9ce" Name="Diagram1">
-        <EntityTypeShape EntityType="Turnover_databaseModel.Concierto" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Turnover_databaseModel.Entrada" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="64f4deb28f0447ffb3add6e96691d9ce" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="Turnover_databaseModel.Concierto" Width="1.5" PointX="4.625" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Turnover_databaseModel.Entrada" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Turnover_databaseModel.HistorialCompra" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Turnover_databaseModel.Usuario" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
         <AssociationConnector Association="Turnover_databaseModel.FK__Entradas__Concie__3D5E1FD2" ManuallyRouted="false" />

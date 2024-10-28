@@ -1,65 +1,57 @@
 ﻿@model Turnover_SA_de_CV.Entrada
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de Entrada";
 }
 
-<h2>Details</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4 display-4">Detalles de Entrada</h2>
 
-<div>
-    <h4>Entrada</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Seccion)
-        </dt>
+    <div class="card shadow p-5">
+        <h4 class="card-title mb-3">Información de la Entrada</h4>
+        <hr />
+        <dl class="row">
+            <!-- Sección -->
+            <dt class="col-sm-3">Sección</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Seccion)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Seccion)
-        </dd>
+            <!-- Cantidad -->
+            <dt class="col-sm-3">Cantidad</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Cantidad)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </dt>
+            <!-- Fecha de Compra -->
+            <dt class="col-sm-3">Fecha de Compra</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FechaCompra)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cantidad)
-        </dd>
+            <!-- Nombre del Concierto -->
+            <dt class="col-sm-3">Concierto</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Concierto.Nombre)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaCompra)
-        </dt>
+            <!-- Nombre del Usuario -->
+            <dt class="col-sm-3">Usuario</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Usuario.Nombre)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FechaCompra)
-        </dd>
+            <!-- Total Pagado -->
+            <dt class="col-sm-3">Total Pagado</dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.TotalPagado)
+            </dd>
+        </dl>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Concierto.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Concierto.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalPagado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TotalPagado)
-        </dd>
-    </dl>
+    <div class="text-center mt-4">
+        <!-- Botones de acción -->
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-lg mx-2" })
+        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-secondary btn-lg mx-2" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

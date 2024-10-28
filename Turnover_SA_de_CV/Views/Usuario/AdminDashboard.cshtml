@@ -1,20 +1,18 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Control de Administrador</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div>
+    <div class="container mt-4">
+        <h2 class="text-center">Panel de Control de Administrador</h2>
 
-        @model Turnover_SA_de_CV.ViewModels.AdminDashboardViewModel
-
-        <h2>Panel de Control de Administrador</h2>
-
-        <h3>Gestión de Conciertos</h3>
-        <table class="table">
-            <thead>
+        <h3 class="mt-4">Gestión de Conciertos</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
                     <th>Nombre</th>
                     <th>Fecha</th>
@@ -27,20 +25,20 @@
                 {
                     <tr>
                         <td>@concierto.Nombre</td>
-                        <td>@concierto.FechaConcierto</td>
+                        <td>@concierto.FechaConcierto.ToString("dd/MM/yyyy")</td>
                         <td>@concierto.Lugar</td>
                         <td>
-                            @Html.ActionLink("Editar", "Edit", "Conciertos", new { id = concierto.Id }, null) |
-                            @Html.ActionLink("Eliminar", "Delete", "Conciertos", new { id = concierto.Id }, null)
+                            @Html.ActionLink("Editar", "Edit", "Conciertos", new { id = concierto.Id }, new { @class = "btn btn-warning btn-sm" }) |
+                            @Html.ActionLink("Eliminar", "Delete", "Conciertos", new { id = concierto.Id }, new { @class = "btn btn-danger btn-sm" })
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
 
-        <h3>Gestión de Entradas</h3>
-        <table class="table">
-            <thead>
+        <h3 class="mt-4">Gestión de Entradas</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
                     <th>Concierto</th>
                     <th>Sección</th>
@@ -56,16 +54,18 @@
                         <td>@entrada.Concierto.Nombre</td>
                         <td>@entrada.Seccion</td>
                         <td>@entrada.Cantidad</td>
-                        <td>@entrada.TotalPagado</td>
+                        <td>@entrada.TotalPagado.ToString("C")</td>
                         <td>
-                            @Html.ActionLink("Editar", "Edit", "Entradas", new { id = entrada.Id }, null) |
-                            @Html.ActionLink("Eliminar", "Delete", "Entradas", new { id = entrada.Id }, null)
+                            @Html.ActionLink("Editar", "Edit", "Entradas", new { id = entrada.Id }, new { @class = "btn btn-warning btn-sm" }) |
+                            @Html.ActionLink("Eliminar", "Delete", "Entradas", new { id = entrada.Id }, new { @class = "btn btn-danger btn-sm" })
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
