@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Turnover_SA_de_CV.ViewModels;
 
 namespace Turnover_SA_de_CV.Controllers
 {
@@ -78,25 +79,21 @@ namespace Turnover_SA_de_CV.Controllers
             var usuarioId = Session["UsuarioId"];
             if (usuarioId != null)
             {
-                // Obtener el listado de conciertos disponibles
-                var conciertos = _context.Conciertos.ToList();
+                var viewModel = new DashboardViewModel
+                {
+                    ListaConciertos = _context.Conciertos.ToList(), // Cambiado de 'db' a '_context'
+                    HistorialCompras = _context.Entradas.Select(e => new HistorialCompraViewModel
+                    {
+                        NombreConcierto = e.Concierto.Nombre,
+                        TipoEntrada = e.Seccion,
+                        Cantidad = e.Cantidad,
+                        FechaCompra = e.FechaCompra,
+                        Lugar = e.Concierto.Lugar, // Asegúrate de que el modelo Concierto tenga esta propiedad
+                        TotalPagado = e.TotalPagado
+                    }).ToList()
+                };
 
-                // Obtener el historial de compras del usuario autenticado, incluyendo la sección desde Entradas
-                var compras = _context.Entradas
-                    .Where(e => e.UsuarioId.ToString() == usuarioId.ToString())
-                    .Select(e => new {
-                        e.Concierto.Nombre,
-                        e.FechaCompra,
-                        e.Seccion,
-                        e.Cantidad
-                    })
-                    .ToList();
-
-                // Pasar ambos datos a la vista usando ViewBag
-                ViewBag.ConciertosDisponibles = conciertos;
-                ViewBag.HistorialCompras = compras;
-
-                return View();
+                return View(viewModel);
             }
             else
             {

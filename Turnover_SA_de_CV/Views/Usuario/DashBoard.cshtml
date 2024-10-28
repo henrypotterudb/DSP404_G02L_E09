@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <div>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var concierto in ViewBag.ConciertosDisponibles)
+                @foreach (var concierto in Model.ListaConciertos) // Cambié ViewBag.ConciertosDisponibles a Model.ListaConciertos
                 {
                     <tr>
                         <td>@concierto.Nombre</td>
@@ -41,26 +41,29 @@
 
         <!-- Sección de Historial de Compras -->
         <h3>Historial de Compras</h3>
-
-        @if (ViewBag.HistorialCompras != null && ((IEnumerable<dynamic>)ViewBag.HistorialCompras).Any())
+        @if (Model.HistorialCompras != null && Model.HistorialCompras.Count > 0)
         {
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Concierto</th>
+                        <th>Nombre del Concierto</th>
                         <th>Fecha de Compra</th>
                         <th>Sección</th>
-                        <th>Cantidad de Entradas</th>
+                        <th>Cantidad</th>
+                        <th>Lugar</th>
+                        <th>Total Pagado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var compra in ViewBag.HistorialCompras)
+                    @foreach (var compra in Model.HistorialCompras)
                     {
                         <tr>
-                            <td>@compra.Nombre</td>
-                            <td>@compra.FechaCompra</td>
-                            <td>@compra.Seccion</td>
+                            <td>@compra.NombreConcierto</td>
+                            <td>@compra.FechaCompra.ToString("dd/MM/yyyy")</td> <!-- Formato de fecha -->
+                            <td>@compra.TipoEntrada</td> <!-- Cambié Seccion a TipoEntrada -->
                             <td>@compra.Cantidad</td>
+                            <td>@compra.Lugar</td>
+                            <td>@compra.TotalPagado.ToString("C")</td> <!-- Formato de moneda -->
                         </tr>
                     }
                 </tbody>
@@ -70,9 +73,6 @@
         {
             <p>No has realizado ninguna compra aún.</p>
         }
-
-
-
     </div>
 </body>
 </html>
