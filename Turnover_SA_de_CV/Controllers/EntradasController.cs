@@ -49,10 +49,31 @@ namespace Turnover_SA_de_CV.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra")] Entrada entrada)
+        public ActionResult Create([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra,TotalPagado")] Entrada entrada)
         {
             if (ModelState.IsValid)
             {
+                // Obtener el concierto seleccionado
+                var concierto = db.Conciertos.Find(entrada.ConciertoId);
+
+                // Calcular el TotalPagado basado en la sección y la cantidad de entradas
+                switch (entrada.Seccion)
+                {
+                    case "Platea":
+                        entrada.TotalPagado = concierto.PrecioPlatea * entrada.Cantidad;
+                        break;
+                    case "VIP":
+                        entrada.TotalPagado = concierto.PrecioVIP * entrada.Cantidad;
+                        break;
+                    case "General":
+                        entrada.TotalPagado = concierto.PrecioGeneral * entrada.Cantidad;
+                        break;
+                    default:
+                        entrada.TotalPagado = 0; // Manejar un valor predeterminado por si algo sale mal
+                        break;
+                }
+
+                // Agregar la entrada con el TotalPagado calculado
                 db.Entradas.Add(entrada);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,6 +83,7 @@ namespace Turnover_SA_de_CV.Controllers
             ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nombre", entrada.UsuarioId);
             return View(entrada);
         }
+
 
         // GET: Entradas/Edit/5
         public ActionResult Edit(int? id)
@@ -85,18 +107,41 @@ namespace Turnover_SA_de_CV.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra")] Entrada entrada)
+        public ActionResult Edit([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra,TotalPagado")] Entrada entrada)
         {
             if (ModelState.IsValid)
             {
+                // Obtener el concierto actualizado
+                var concierto = db.Conciertos.Find(entrada.ConciertoId);
+
+                // Recalcular el TotalPagado basado en la sección y la cantidad de entradas
+                switch (entrada.Seccion)
+                {
+                    case "Platea":
+                        entrada.TotalPagado = concierto.PrecioPlatea * entrada.Cantidad;
+                        break;
+                    case "VIP":
+                        entrada.TotalPagado = concierto.PrecioVIP * entrada.Cantidad;
+                        break;
+                    case "General":
+                        entrada.TotalPagado = concierto.PrecioGeneral * entrada.Cantidad;
+                        break;
+                    default:
+                        entrada.TotalPagado = 0; // Valor predeterminado
+                        break;
+                }
+
+                // Actualizar la entrada con el TotalPagado calculado
                 db.Entry(entrada).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.ConciertoId = new SelectList(db.Conciertos, "Id", "Nombre", entrada.ConciertoId);
             ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nombre", entrada.UsuarioId);
             return View(entrada);
         }
+
 
         // GET: Entradas/Delete/5
         public ActionResult Delete(int? id)
