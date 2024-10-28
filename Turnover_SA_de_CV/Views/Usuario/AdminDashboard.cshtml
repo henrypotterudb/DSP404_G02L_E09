@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+
+        @model Turnover_SA_de_CV.ViewModels.AdminDashboardViewModel
+
+        <h2>Panel de Control de Administrador</h2>
+
+        <h3>Gestión de Conciertos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var concierto in Model.ListaConciertos)
+                {
+                    <tr>
+                        <td>@concierto.Nombre</td>
+                        <td>@concierto.FechaConcierto</td>
+                        <td>@concierto.Lugar</td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", "Conciertos", new { id = concierto.Id }, null) |
+                            @Html.ActionLink("Eliminar", "Delete", "Conciertos", new { id = concierto.Id }, null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h3>Gestión de Entradas</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Concierto</th>
+                    <th>Sección</th>
+                    <th>Cantidad</th>
+                    <th>Total Pagado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entrada in Model.ListaEntradas)
+                {
+                    <tr>
+                        <td>@entrada.Concierto.Nombre</td>
+                        <td>@entrada.Seccion</td>
+                        <td>@entrada.Cantidad</td>
+                        <td>@entrada.TotalPagado</td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", "Entradas", new { id = entrada.Id }, null) |
+                            @Html.ActionLink("Eliminar", "Delete", "Entradas", new { id = entrada.Id }, null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

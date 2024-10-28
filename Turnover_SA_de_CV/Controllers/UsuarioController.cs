@@ -15,7 +15,7 @@ namespace Turnover_SA_de_CV.Controllers
         // Constructor sin parámetros
         public UsuarioController()
         {
-            _context = new Turnover_databaseEntities1(); // Inicializar el contexto aquí
+            _context = new Turnover_databaseEntities1(); // Inicializar el contexto
         }
 
         // Constructor que acepta un parámetro para inyección de dependencias
@@ -38,6 +38,7 @@ namespace Turnover_SA_de_CV.Controllers
                 var usuarioExistente = _context.Usuarios.FirstOrDefault(u => u.Correo == usuario.Correo);
                 if (usuarioExistente == null)
                 {
+                    usuario.Rol = "Cliente"; // Asigna el rol "Cliente" por defecto
                     _context.Usuarios.Add(usuario);
                     _context.SaveChanges();
                     return RedirectToAction("Login");
@@ -62,9 +63,10 @@ namespace Turnover_SA_de_CV.Controllers
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Correo == correoElectronico && u.Contraseña == contraseña);
             if (usuario != null)
             {
-                // Usar Session para almacenar datos
                 Session["UsuarioId"] = usuario.Id.ToString();
                 Session["NombreUsuario"] = usuario.Nombre;
+                Session["Rol"] = usuario.Rol; 
+
                 return RedirectToAction("Dashboard");
             }
             else
@@ -74,32 +76,64 @@ namespace Turnover_SA_de_CV.Controllers
             }
         }
 
+
         public ActionResult Dashboard()
         {
-            var usuarioId = Session["UsuarioId"];
-            if (usuarioId != null)
+            if (Session["UsuarioId"] == null)
             {
-                var viewModel = new DashboardViewModel
-                {
-                    ListaConciertos = _context.Conciertos.ToList(), // Cambiado de 'db' a '_context'
-                    HistorialCompras = _context.Entradas.Select(e => new HistorialCompraViewModel
+                return RedirectToAction("Login");
+            }
+
+            // Solo los clientes pueden acceder a este Dashboard
+            if (Session["Rol"].ToString() != "Cliente")
+            {
+                return RedirectToAction("AdminDashboard"); // Redirigir a un dashboard de administrador
+            }
+
+            int usuarioId = int.Parse(Session["UsuarioId"].ToString());
+
+            var viewModel = new DashboardViewModel
+            {
+                ListaConciertos = _context.Conciertos.ToList(),
+                HistorialCompras = _context.Entradas
+                    .Where(e => e.UsuarioId == usuarioId)
+                    .Select(e => new HistorialCompraViewModel
                     {
                         NombreConcierto = e.Concierto.Nombre,
                         TipoEntrada = e.Seccion,
                         Cantidad = e.Cantidad,
                         FechaCompra = e.FechaCompra,
-                        Lugar = e.Concierto.Lugar, // Asegúrate de que el modelo Concierto tenga esta propiedad
+                        Lugar = e.Concierto.Lugar,
                         TotalPagado = e.TotalPagado
                     }).ToList()
-                };
+            };
 
-                return View(viewModel);
-            }
-            else
+            return View(viewModel);
+        }
+
+        public ActionResult AdminDashboard()
+        {
+            if (Session["UsuarioId"] == null)
             {
                 return RedirectToAction("Login");
             }
+
+            // Solo los administradores pueden acceder a este Dashboard
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Dashboard"); // Redirigir al dashboard de clientes si no es admin
+            }
+
+            var viewModel = new AdminDashboardViewModel
+            {
+                ListaConciertos = _context.Conciertos.ToList(),
+                ListaEntradas = _context.Entradas.ToList()
+            };
+
+            return View(viewModel);
         }
+
+
 
         public ActionResult Logout()
         {

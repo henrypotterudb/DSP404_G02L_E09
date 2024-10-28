@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var concierto in Model.ListaConciertos) // Cambié ViewBag.ConciertosDisponibles a Model.ListaConciertos
+                @foreach (var concierto in Model.ListaConciertos) 
                 {
                     <tr>
                         <td>@concierto.Nombre</td>
@@ -59,11 +59,11 @@
                     {
                         <tr>
                             <td>@compra.NombreConcierto</td>
-                            <td>@compra.FechaCompra.ToString("dd/MM/yyyy")</td> <!-- Formato de fecha -->
-                            <td>@compra.TipoEntrada</td> <!-- Cambié Seccion a TipoEntrada -->
+                            <td>@compra.FechaCompra.ToString("dd/MM/yyyy")</td> 
+                            <td>@compra.TipoEntrada</td> 
                             <td>@compra.Cantidad</td>
                             <td>@compra.Lugar</td>
-                            <td>@compra.TotalPagado.ToString("C")</td> <!-- Formato de moneda -->
+                            <td>@compra.TotalPagado.ToString("C")</td>
                         </tr>
                     }
                 </tbody>

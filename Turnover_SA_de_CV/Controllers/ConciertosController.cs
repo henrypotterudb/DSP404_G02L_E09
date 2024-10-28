@@ -17,12 +17,37 @@ namespace Turnover_SA_de_CV.Controllers
         // GET: Conciertos
         public ActionResult Index()
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }            
+            
             return View(db.Conciertos.ToList());
         }
 
         // GET: Conciertos/Details/5
         public ActionResult Details(int? id)
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -48,6 +73,18 @@ namespace Turnover_SA_de_CV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,PrecioPlatea,EntradasVIPDisponibles,PrecioVIP,EntradasGeneralDisponibles,PrecioGeneral")] Concierto concierto)
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             if (ModelState.IsValid)
             {
                 db.Conciertos.Add(concierto);
@@ -80,6 +117,18 @@ namespace Turnover_SA_de_CV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nombre,FechaConcierto,Lugar,EntradasPlateaDisponibles,PrecioPlatea,EntradasVIPDisponibles,PrecioVIP,EntradasGeneralDisponibles,PrecioGeneral")] Concierto concierto)
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(concierto).State = EntityState.Modified;
@@ -92,6 +141,18 @@ namespace Turnover_SA_de_CV.Controllers
         // GET: Conciertos/Delete/5
         public ActionResult Delete(int? id)
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +170,18 @@ namespace Turnover_SA_de_CV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Verificar si la sesión está inicializada y si la clave "Rol" existe.
+            if (Session["Rol"] == null)
+            {
+                // Redirigir al login si no hay una sesión activa o no hay rol.
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            // Si la sesión existe, asegurarse que el rol sea "Administrador".
+            if (Session["Rol"].ToString() != "Administrador")
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
             Concierto concierto = db.Conciertos.Find(id);
             db.Conciertos.Remove(concierto);
             db.SaveChanges();

@@ -147,6 +147,7 @@
     <Compile Include="Usuario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,7 @@
     <Content Include="Views\Conciertos\Details.cshtml" />
     <Content Include="Views\Conciertos\Edit.cshtml" />
     <Content Include="Views\Conciertos\Index.cshtml" />
+    <Content Include="Views\Usuario\AdminDashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

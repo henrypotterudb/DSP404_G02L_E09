@@ -50,6 +50,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Correo" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Contraseña" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK__Entradas__Concie__3D5E1FD2">
           <End Role="Conciertos" Type="Self.Conciertos" Multiplicity="1" />
@@ -178,6 +179,7 @@
           <Property Name="Contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Entradas" Relationship="Self.FK__Entradas__Usuari__3C69FB99" FromRole="Usuarios" ToRole="Entradas" />
           <NavigationProperty Name="HistorialCompras" Relationship="Self.FK__Historial__Usuar__403A8C7D" FromRole="Usuarios" ToRole="HistorialCompras" />
+          <Property Name="Rol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Entradas__Concie__3D5E1FD2">
           <End Role="Conciertos" Type="Self.Concierto" Multiplicity="1" />
@@ -298,6 +300,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="Turnover_databaseModel.Usuario">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />

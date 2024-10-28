@@ -44,9 +44,7 @@ namespace Turnover_SA_de_CV.Controllers
             return View();
         }
 
-        // POST: Entradas/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Entradas/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra,TotalPagado")] Entrada entrada)
@@ -69,14 +67,14 @@ namespace Turnover_SA_de_CV.Controllers
                         entrada.TotalPagado = concierto.PrecioGeneral * entrada.Cantidad;
                         break;
                     default:
-                        entrada.TotalPagado = 0; // Manejar un valor predeterminado por si algo sale mal
+                        entrada.TotalPagado = 0; 
                         break;
                 }
 
                 // Agregar la entrada con el TotalPagado calculado
                 db.Entradas.Add(entrada);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("DashBoard", "Usuario");
             }
 
             ViewBag.ConciertoId = new SelectList(db.Conciertos, "Id", "Nombre", entrada.ConciertoId);
@@ -102,9 +100,7 @@ namespace Turnover_SA_de_CV.Controllers
             return View(entrada);
         }
 
-        // POST: Entradas/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Entradas/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,UsuarioId,ConciertoId,Seccion,Cantidad,FechaCompra,TotalPagado")] Entrada entrada)
